@@ -1,0 +1,85 @@
+/******************************************/
+/***** Written by Taylor Johnson 2006 *****/
+/******************************************/
+
+td, input, select {
+	color:#666666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height:1.5;
+}
+#footer {
+	font-size:10px;
+	text-align:right;
+	color:#666666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	line-height:1.5;
+	margin-top:30px;
+	margin-bottom:30px;
+}
+.required {
+	color: #FF0000;
+}
+h1 {
+	color:#666666;
+	font-size:14px;
+}
+h2 {
+	color:#2BA693;
+	font-size:12px;
+}
+.link {
+	color:#666666;
+}
+.tableHeader {
+	color:#FFFFFF;
+	background-color:#666666;
+	font-size:12px;
+	font-weight:bold;
+	border-right:2px solid #FFFFFF;
+}
+.buttons {
+	FONT-FAMILY:Verdana, Arial, Helvetica, sans-serif;
+	FONT-SIZE:11px;
+	color:#000000;
+	background-color: #CCEBEB;
+	border:3px double #006464;
+	cursor: pointer;
+}
+.error {
+	color:#FF0000;
+	font-weight:bold;
+}
+#logOff {
+	position:absolute;
+	width:720px;
+	text-align:right;
+	font-weight:bold;
+	font-size:11px;
+}
+.note {
+	font-size:9px;
+}
+#step1, #step2{
+	border:1px solid #6AABA5;
+	border-top:none;
+}
+.stepTabOn{
+	border:1px solid #6AABA5;
+	border-bottom:none;
+	background-color:#EEEEEE;
+	font-weight:bold;
+}
+.stepTabOn a, .stepTabOff a{
+	text-decoration:none;
+	color:#666666;
+}
+.stepTabOff{
+	border-bottom:1px solid #6AABA5;
+}
+form{
+	margin:0px;
+}
+#servicesBIList td {
+	 padding-left:20px;
+}

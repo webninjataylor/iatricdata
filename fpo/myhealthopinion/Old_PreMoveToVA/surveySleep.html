@@ -1,0 +1,508 @@
+<HTML>
+<HEAD>
+<TITLE>Pittsburgh Sleep Quality Index</TITLE>
+<STYLE type="text/css">
+<!--
+.title {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+.author {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-style: italic;
+	text-align: center;
+	margin-top:-10px;
+}
+BODY, TD, FORM, INPUT, SELECT, TEXTAREA {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.note {
+	font-size: 9px;
+	font-style: italic;
+}
+.answerGood {
+	color:#000000;
+	background-color:#0099FF;
+	font-weight:bold;
+	padding:5px;
+	display:none;
+}
+.answerPoor {
+	color:#000000;
+	background-color:#FF0000;
+	font-weight:bold;
+	padding:5px;
+	display:none;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<SCRIPT language="javascript" type="text/javascript">
+function calculatePSQIScore(){
+	var q1 = parseInt(document.getElementById('q1').value);
+	var q2 = parseInt(document.getElementById('q2').value);
+	var q3 = parseInt(document.getElementById('q3').value);
+	var hoursInBed = 0;
+	if (q1 > q3){
+		hoursInBed = (24 - q1) + q3;
+	}
+	else if (q3 > q1){
+		hoursInBed = q3 - q1;
+	}
+	var q4 = parseInt(document.getElementById('q4').value);
+	var q5a = parseInt(document.getElementById('q5a').value);
+	var q5b = parseInt(document.getElementById('q5b').value);
+	var q5c = parseInt(document.getElementById('q5c').value);
+	var q5d = parseInt(document.getElementById('q5d').value);
+	var q5e = parseInt(document.getElementById('q5e').value);
+	var q5f = parseInt(document.getElementById('q5f').value);
+	var q5g = parseInt(document.getElementById('q5g').value);
+	var q5h = parseInt(document.getElementById('q5h').value);
+	var q5i = parseInt(document.getElementById('q5i').value);
+	var q5j = parseInt(document.getElementById('q5j').value);
+	var q6 = parseInt(document.getElementById('q6').value);
+	var q7 = parseInt(document.getElementById('q7').value);
+	var q8 = parseInt(document.getElementById('q8').value);
+	var q9 = parseInt(document.getElementById('q9').value);
+	var c1 = document.getElementById('c1').value = q9;
+	var c2 = q2 + q5a;
+	if (c2 == 0){
+		document.getElementById('c2').value = 0;
+		c2 = 0;
+	}
+	else if ((c2 == 1)||(c2 == 2)){
+		document.getElementById('c2').value = 1;
+		c2 = 1;
+	}
+	else if ((c2 == 3)||(c2 == 4)){
+		document.getElementById('c2').value = 2;
+		c2 = 2;
+	}
+	else if ((c2 == 5)||(c2 == 6)){
+		document.getElementById('c2').value = 3;
+		c2 = 3;
+	}
+	var c3 = q4;
+	if (c3 > 7){
+		document.getElementById('c3').value = 0;
+		c3 = 0;
+	}
+	else if ((c3 == 6)||(c3 == 7)){
+		document.getElementById('c3').value = 1;
+		c3 = 1;
+	}
+	else if (c3 == 5){
+		document.getElementById('c3').value = 2;
+		c3 = 2;
+	}
+	else if (c3 < 5){
+		document.getElementById('c3').value = 3;
+		c3 = 3;
+	}
+	var c4 = 0;
+	var percentSleep = 0;
+	percentSleep = (q4/hoursInBed)*100;
+	if (percentSleep >= 85){
+		document.getElementById('c4').value = 0;
+		c4 = 0;
+	}
+	else if (percentSleep >= 75){
+		document.getElementById('c4').value = 1;
+		c4 = 1;
+	}
+	else if (percentSleep >= 65){
+		document.getElementById('c4').value = 2;
+		c4 = 2;
+	}
+	else if (percentSleep < 65){
+		document.getElementById('c4').value = 3;
+		c4 = 3;
+	}
+	var c5 = q5b + q5c + q5d + q5e + q5f + q5g + q5h + q5i + q5j;
+	if (c5 == 0){
+		document.getElementById('c5').value = 0;
+		c5 = 0;
+	}
+	else if ((c5 >= 1)&&(c5 <= 9)){
+		document.getElementById('c5').value = 1;
+		c5 = 1;
+	}
+	else if ((c5 >= 10)&&(c5 <= 18)){
+		document.getElementById('c5').value = 2;
+		c5 = 2;
+	}
+	else if (c5 >= 19){
+		document.getElementById('c5').value = 3;
+		c5 = 3;
+	}
+	var c6 = document.getElementById('c6').value = q6;
+	var c7 = q7 + q8;
+	if (c7 == 0){
+		document.getElementById('c7').value = 0;
+		c7 = 0;
+	}
+	else if ((c7 >= 1)&&(c7 <= 2)){
+		document.getElementById('c7').value = 1;
+		c7 = 1;
+	}
+	else if ((c7 >= 3)&&(c7 <= 4)){
+		document.getElementById('c7').value = 2;
+		c7 = 2;
+	}
+	else if (c7 >= 5){
+		document.getElementById('c7').value = 3;
+		c7 = 3;
+	}
+	var globalPSQIScore = document.getElementById('globalPSQIScore').value = c1 + c2 + c3 + c4 + c5 + c6 + c7;   //DONE
+	if (globalPSQIScore >= 5){
+		document.getElementById('poor').style.display = 'block';
+		document.getElementById('good').style.display = 'none';
+	}
+	else{
+		document.getElementById('poor').style.display = 'none';
+		document.getElementById('good').style.display = 'block';
+	}
+	document.location = "#bottom";
+}
+</SCRIPT>
+<FORM name="form1" method="post" action="">
+  <DIV id="info" style="display:none; background-color:#FFFFCC; padding:10px;">
+    <DIV class="title">The Pittsburgh Sleep Quality Index (PSQI)</DIV>
+    <BR>
+    <DIV class="author">By: Carole Smyth, RNC, MSN</DIV>
+    <P><STRONG>Why: </STRONG>Sleep is a necessary part of life. However, normal aging changes, medical problems, psychiatric problems, and psychosocial issues can alter the pattern and quality of sleep as one grows older, and thus affect the quality of life in the older adult. Assessment of sleep patterns enables the nurse to intervene immediately by implementing interventions with the client, or by referring the client for further assessment.</P>
+    <P><STRONG>Best Tool: </STRONG>The Pittsburgh Sleep Quality Index (PSQI) is an effective instrument used to measure the quality and patterns of sleep in the older adult. It differentiates &ldquo;poor&rdquo; from &ldquo;good&rdquo; sleep by measuring seven areas: subjective sleep quality, sleep latency, sleep duration, habitual sleep efficiency, sleep disturbances, use of sleeping medication, and daytime dysfunction over the last month. The client self-rates each of these seven areas of sleep. Scoring of answers is based on a 0 to 3 scale, whereby 3 reflects the negative extreme on the Likert Scale. A global sum of &ldquo;5&rdquo; or greater indicates a &ldquo;poor&rdquo; sleeper. Although there are several questions that request the evaluation of the client&rsquo;s bedmate or roommate, these are not scored (not reflected in attached instrument). Refer to &ldquo;More on the Topic&rdquo;, Buysse et al., 1989, for these questions.</P>
+    <P><STRONG>Target Population: </STRONG>The PSQI can be used for both an initial assessment and ongoing comparative measurements with older adults across all health care settings.</P>
+    <P><STRONG>Validity/Reliability: </STRONG>The PSQI has internal consistency and a reliability coefficient (Cronbach&rsquo;s alpha) of 0.83 for its seven components. Numerous studies using the PSQI have supported high validity and reliability.</P>
+    <P><STRONG>Strengths and Limitations:</STRONG> The PSQI is a subjective measure of sleep. Self-reporting by clients can empower the client, but can reflect inaccurate information if the client has difficulty understanding what is written, or can not see or physically write out responses. Moreover, the scale is presented in English. The scale can be adapted to enable the client to respond verbally to items on the scale by having the nurse read the statements to the client.</P>
+    <P><STRONG>More on the Topic:</STRONG></P>
+    <UL>
+      <LI>Beaton, S.R., Voge, S.A. (1998). Measurements for Long-Term Care (pp.169-170). Thousand Oaks, CA: Sage Publications.</LI>
+      <LI>Beck-Little, R., Weinrich, S.P. (1998). Assessment and Management of Sleep Disorders in the Elderly. <EM>Journal of Gerontological Nursing</EM>, 24(4), 21-29.</LI>
+      <LI>Buysse, D.J., Reynolds III, C.F., Monk, T.H., Berman, S.R., Kupfer, D.J. (1989). The Pittsburgh Sleep Quality Index: a New Instrument for Psychiatric Practice and Research. <EM>Journal of Psychiatric Research</EM>, 28 (2), 193-213.</LI>
+    </UL>
+    <P align="center">Permission is hereby granted to reproduce this material for not-for-profit educational purposes only,<BR>
+      provided <STRONG>The Hartford Institute for Geriatric Nursing, Division of Nursing, New York University</STRONG> is cited as the source.<BR>
+      Available on the internet at www.hartfordign.org. E-mail notification of usage to: hartford.ign@nyu.edu.</P>
+  </DIV>
+  <DIV id="questions">
+    <P align="left">
+      <INPUT type="button" name="Open" value="Show Info" onClick="document.getElementById('info').style.display = 'block';">
+&#160;&#160;&#160;
+      <INPUT type="button" name="Close" value="Hide Info" onClick="document.getElementById('info').style.display = 'none';">
+    </P>
+    <P><STRONG>Instructions: </STRONG>The following questions relate to your usual sleep habits during the past month only. Your answers should indicate the most accurate reply for the majority of days and nights in the past month. Please answer all questions.</P>
+    <TABLE width="0" border="0" cellspacing="0" cellpadding="3">
+      <TR>
+        <TD><STRONG>During the past month,</STRONG></TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD>1. When have you usually gone to bed?</TD>
+        <TD><SELECT name="q1" id="q1" style="width:100%">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">12:00 AM</OPTION>
+            <OPTION value="1">1:00 AM</OPTION>
+            <OPTION value="2">2:00 AM</OPTION>
+            <OPTION value="3">3:00 AM</OPTION>
+            <OPTION value="4">4:00 AM</OPTION>
+            <OPTION value="5">5:00 AM</OPTION>
+            <OPTION value="6">6:00 AM</OPTION>
+            <OPTION value="7">7:00 AM</OPTION>
+            <OPTION value="8">8:00 AM</OPTION>
+            <OPTION value="9">9:00 AM</OPTION>
+            <OPTION value="10">10:00 AM</OPTION>
+            <OPTION value="11">11:00 AM</OPTION>
+            <OPTION value="12">12:00 PM</OPTION>
+            <OPTION value="13">1:00 PM</OPTION>
+            <OPTION value="14">2:00 PM</OPTION>
+            <OPTION value="15">3:00 PM</OPTION>
+            <OPTION value="16">4:00 PM</OPTION>
+            <OPTION value="17">5:00 PM</OPTION>
+            <OPTION value="18">6:00 PM</OPTION>
+            <OPTION value="19">7:00 PM</OPTION>
+            <OPTION value="20">8:00 PM</OPTION>
+            <OPTION value="21">9:00 PM</OPTION>
+            <OPTION value="22">10:00 PM</OPTION>
+            <OPTION value="23">11:00 PM</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD>2. How long (in minutes) has it taken you to fall asleep each night?</TD>
+        <TD><SELECT name="q2" id="q2" style="width:100%">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">&#8804; 15 Minutes (0)</OPTION>
+            <OPTION value="1">16-30 Minutes (1)</OPTION>
+            <OPTION value="2">31-60 Minutes (2)</OPTION>
+            <OPTION value="3">&gt; 60 Minutes (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD>3. When have you usually gotten up in the morning?</TD>
+        <TD><SELECT name="q3" id="q3" style="width:100%">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">12:00 AM</OPTION>
+            <OPTION value="1">1:00 AM</OPTION>
+            <OPTION value="2">2:00 AM</OPTION>
+            <OPTION value="3">3:00 AM</OPTION>
+            <OPTION value="4">4:00 AM</OPTION>
+            <OPTION value="5">5:00 AM</OPTION>
+            <OPTION value="6">6:00 AM</OPTION>
+            <OPTION value="7">7:00 AM</OPTION>
+            <OPTION value="8">8:00 AM</OPTION>
+            <OPTION value="9">9:00 AM</OPTION>
+            <OPTION value="10">10:00 AM</OPTION>
+            <OPTION value="11">11:00 AM</OPTION>
+            <OPTION value="12">12:00 PM</OPTION>
+            <OPTION value="13">1:00 PM</OPTION>
+            <OPTION value="14">2:00 PM</OPTION>
+            <OPTION value="15">3:00 PM</OPTION>
+            <OPTION value="16">4:00 PM</OPTION>
+            <OPTION value="17">5:00 PM</OPTION>
+            <OPTION value="18">6:00 PM</OPTION>
+            <OPTION value="19">7:00 PM</OPTION>
+            <OPTION value="20">8:00 PM</OPTION>
+            <OPTION value="21">9:00 PM</OPTION>
+            <OPTION value="22">10:00 PM</OPTION>
+            <OPTION value="23">11:00 PM</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD>4. How many hours of actual sleep did you get that night? (This may be different than the number of hours you spend in bed)</TD>
+        <TD><SELECT name="q4" id="q4" style="width:100%">
+            <OPTION value="8" selected>&#160;</OPTION>
+            <OPTION value="0">0 Hours</OPTION>
+            <OPTION value="1">1 Hour</OPTION>
+            <OPTION value="2">2 Hours</OPTION>
+            <OPTION value="3">3 Hours</OPTION>
+            <OPTION value="4">4 Hours</OPTION>
+            <OPTION value="5">5 Hours</OPTION>
+            <OPTION value="6">6 Hours</OPTION>
+            <OPTION value="7">7 Hours</OPTION>
+            <OPTION value="8">8 Hours</OPTION>
+            <OPTION value="9">9 Hours</OPTION>
+            <OPTION value="10">10 Hours</OPTION>
+            <OPTION value="11">11 Hours</OPTION>
+            <OPTION value="12">12 Hours</OPTION>
+            <OPTION value="13">13 Hours</OPTION>
+            <OPTION value="14">14 Hours</OPTION>
+            <OPTION value="15">15 Hours</OPTION>
+            <OPTION value="16">16 Hours</OPTION>
+            <OPTION value="17">17 Hours</OPTION>
+            <OPTION value="18">18 Hours</OPTION>
+            <OPTION value="19">19 Hours</OPTION>
+            <OPTION value="20">20 Hours</OPTION>
+            <OPTION value="21">21 Hours</OPTION>
+            <OPTION value="22">22 Hours</OPTION>
+            <OPTION value="23">23 Hours</OPTION>
+            <OPTION value="24">24 Hours</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD><STRONG>5. During the past month, how often have you had trouble sleeping because you&hellip;</STRONG></TD>
+        <TD>&nbsp;</TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD style="padding-left:20px;">a. Cannot get to sleep within 30 minutes </TD>
+        <TD><SELECT name="q5a" id="q5a">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD style="padding-left:20px;">b.Wake up in the middle of the night or early morning</TD>
+        <TD><SELECT name="q5b" id="q5b">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD style="padding-left:20px;">c. Have to get up to use the bathroom</TD>
+        <TD><SELECT name="q5c" id="q5c">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD style="padding-left:20px;">d. Cannot breathe comfortably</TD>
+        <TD><SELECT name="q5d" id="q5d">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD style="padding-left:20px;">e. Cough or snore loudly</TD>
+        <TD><SELECT name="q5e" id="q5e">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD style="padding-left:20px;">f. Feel too cold</TD>
+        <TD><SELECT name="q5f" id="q5f">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD style="padding-left:20px;">g. Feel too hot</TD>
+        <TD><SELECT name="q5g" id="q5g">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD style="padding-left:20px;">h. Have bad dreams</TD>
+        <TD><SELECT name="q5h" id="q5h">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD style="padding-left:20px;">i. Have pain</TD>
+        <TD><SELECT name="q5i" id="q5i">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD style="padding-left:20px;">j. Other reason(s), please describe, including how often you have had trouble sleeping because of this reason(s):</TD>
+        <TD><SELECT name="q5j" id="q5j">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD>6. During the past month, how often have you taken medicine (prescribed or &ldquo;over the counter&rdquo;) to help you sleep?</TD>
+        <TD><SELECT name="q6" id="q6">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD>7. During the past month, how often have you had trouble staying awake while driving, eating meals, or engaging in social activity?</TD>
+        <TD><SELECT name="q7" id="q7">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR bgcolor="#CCEBEB">
+        <TD>8. During the past month, how much of a problem has it been for you to keep up enthusiasm to get things done?</TD>
+        <TD><SELECT name="q8" id="q8">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Not during the past month (0)</OPTION>
+            <OPTION value="1">Less than once a week (1)</OPTION>
+            <OPTION value="2">Once or twice a week (2)</OPTION>
+            <OPTION value="3">Three or more times a week (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD>9. During the past month, how would you rate your sleep quality overall? </TD>
+        <TD><SELECT name="q9" id="q9" style="width:100%">
+            <OPTION value="0" selected>&#160;</OPTION>
+            <OPTION value="0">Very Good (0)</OPTION>
+            <OPTION value="1">Fairly Good (1)</OPTION>
+            <OPTION value="2">Fairly Bad (2)</OPTION>
+            <OPTION value="3">Very Bad (3)</OPTION>
+          </SELECT></TD>
+      </TR>
+      <TR>
+        <TD style="border-bottom:3px solid #000000;">&nbsp;</TD>
+        <TD style="border-bottom:3px solid #000000;"><BR>
+          <INPUT type="button" name="calculate" value="Calculate PSQI Score" onClick="calculatePSQIScore();" style="width:100%">
+          <BR>
+          <INPUT type="button" name="Reset" value="Reset" onClick="document.location='surveySleep.html';" style="width:100%">
+          <BR></TD>
+      </TR>
+      <TR>
+        <TD align="right">Component 1<BR>
+          <SPAN class="note">( #9 score)</SPAN></TD>
+        <TD><INPUT name="c1" type="text" id="c1" style="width:100%;"></TD>
+      </TR>
+      <TR>
+        <TD align="right">Component 2<BR>
+          <SPAN class="note">(#2 score (&#8804; 15min (0), 16-30 min (1), 31-60 min (2), &gt;60 min (3)) + #5a Score (if sum is equal 0=0; 1-2=1; 3-4=2; 5-6=3))</SPAN></TD>
+        <TD><INPUT name="c2" type="text" id="c2" style="width:100%;"></TD>
+      </TR>
+      <TR>
+        <TD align="right">Component 3<BR>
+          <SPAN class="note">(#4 score (&gt;7(0), 6-7(1), 5-6(2), &lt;5 (3)))</SPAN></TD>
+        <TD><INPUT name="c3" type="text" id="c3" style="width:100%;"></TD>
+      </TR>
+      <TR>
+        <TD align="right">Component 4<BR>
+          <SPAN class="note">((total # of hours asleep)/(total # of hours in bed) x 100 ( &gt;85%=0, 75%-84%=1, 65%-74%=2, &lt;65%=3))</SPAN></TD>
+        <TD><INPUT name="c4" type="text" id="c4" style="width:100%;"></TD>
+      </TR>
+      <TR>
+        <TD align="right">Component 5<BR>
+          <SPAN class="note">(Sum of scores #5b to #5j (0=0; 1-9=1; 10-18=2; 19-27=3))</SPAN></TD>
+        <TD><INPUT name="c5" type="text" id="c5" style="width:100%;"></TD>
+      </TR>
+      <TR>
+        <TD align="right">Component 6<BR>
+          <SPAN class="note">( #6 score)</SPAN></TD>
+        <TD><INPUT name="c6" type="text" id="c6" style="width:100%;"></TD>
+      </TR>
+      <TR>
+        <TD align="right">Component 7<BR>
+          <SPAN class="note">( #7 score + #8 score (0=0; 1-2=1; 3-4=2; 5-6=3))</SPAN></TD>
+        <TD><INPUT name="c7" type="text" id="c7" style="width:100%;"></TD>
+      </TR>
+      <TR>
+        <TD align="right"><STRONG>Global PSQI Score<BR>
+          </STRONG><SPAN class="note">(sum of all seven component scores)</SPAN> </TD>
+        <TD><INPUT name="globalPSQIScore" type="text" id="globalPSQIScore" style="width:100%; font-size:14px; font-weight:bold;"></TD>
+      </TR>
+      <TR>
+        <TD>&nbsp;</TD>
+        <TD><DIV id="good" class="answerGood">Your sleep quality is Good.</DIV>
+          <DIV id="poor" class="answerPoor">Your sleep quality is Poor.</DIV></TD>
+      </TR>
+    </TABLE>
+  </DIV>
+  <A name="bottom"></A>
+</FORM>
+</BODY>
+</HTML>
